@@ -1,7 +1,7 @@
 package com.main.DAO;
 
 import com.main.generic.GenericDAO;
-import com.main.model.Account;
+import com.main.model.Transaction;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -9,30 +9,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class AccountDAO implements GenericDAO<Account> {
+public class TransactionDAO implements GenericDAO<Transaction> {
     public static Connection connection;
 
-    public AccountDAO(Connection connection){
+    public TransactionDAO(Connection connection){
         this.connection= connection;
     }
-
     @Override
-    public List<Account> findAll() {
-        List<Account> accounts = new ArrayList<>();
-        String sql = "Select * from Account";
+    public List<Transaction> findAll() {
+        List<Transaction> accounts = new ArrayList<>();
+        String sql = "Select * from Transaction";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                BigDecimal pay = resultSet.getBigDecimal("pay");
-                String type = resultSet.getNString("type");
+                String label = resultSet.getString("label");
+                BigDecimal amount = resultSet.getBigDecimal("amount");
+                Date date_time = resultSet.getDate("date_time");
+                String  type = resultSet.getNString("type");
 
-
-                Account account = new Account(id, name, pay, type);
+                Transaction account = new Transaction(id, label, amount, date_time, type);
                 accounts.add(account);
             }
         } catch (SQLException e) {
@@ -42,18 +42,18 @@ public class AccountDAO implements GenericDAO<Account> {
     }
 
     @Override
-    public List<Account> saveAll(List<Account> toSave) {
+    public List<Transaction> saveAll(List<Transaction> toSave) {
         return null;
     }
 
     @Override
-    public Account save(Account toSave) {
+    public Transaction save(Transaction toSave) {
         return null;
     }
 
     @Override
-    public Account delete(Account toDelete) {
-        String sql = "Delete * from Account where id = ?";
+    public Transaction delete(Transaction toDelete) {
+        String sql = "DELETE FROM transaction WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, toDelete.getId());
             preparedStatement.executeUpdate();
