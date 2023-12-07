@@ -1,0 +1,370 @@
+openapi: 3.0.3
+info:
+  title: Wallets
+  version: 1.1.0
+  description: STD22023 - STD22029
+servers:
+  - url: http://wallets.com
+paths:
+  /account:
+    post:
+      summary: Add an Account
+      operationId: addAccount
+      tags:
+        - Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+      responses:
+        "201":
+          description: Account added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        "500":
+          description: Internal server error
+    get:
+      tags:
+        - Account
+      summary: Get all accounts
+      description: Return all accounts in the database
+      operationId: getAccount
+      parameters:
+        - name: accountName
+          in: query
+          description: Filter returned accounts by given name
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          description: The list of filtered accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+  "/account/{id}":
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Account ID
+    get:
+      summary: Get an Account by ID
+      operationId: getAccountById
+      tags:
+        - Account
+      responses:
+        "200":
+          description: Account found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        "404":
+          description: Account not found
+        "500":
+          description: Internal server error
+    put:
+      tags:
+        - Account
+      summary: Create or update a list of accounts
+      operationId: crupdateAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Account'
+      responses:
+        200:
+          description: The list of created or updated accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+    delete:
+      summary: Delete an Account by ID
+      operationId: deleteAccount
+      tags:
+        - Account
+      responses:
+        "204":
+          description: Account deleted successfully
+        "404":
+          description: Account not found
+        "500":
+          description: Internal server error
+  /currencies:
+    get:
+      summary: Get all currencies
+      operationId: getCurrencies
+      tags:
+        - Currency
+      responses:
+        200:
+          description: The list of all currencies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Currency'
+        "500":
+          description: Internal server error
+
+    post:
+      summary: Add a Currency
+      operationId: addCurrency
+      tags:
+        - Currency
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Currency'
+      responses:
+        "201":
+          description: Currency added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Currency'
+        "500":
+          description: Internal server error
+
+  "/currencies/{id}":
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Currency ID
+
+    get:
+      summary: Get a Currency by ID
+      operationId: getCurrencyById
+      tags:
+        - Currency
+      responses:
+        "200":
+          description: Currency found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Currency'
+        "404":
+          description: Currency not found
+        "500":
+          description: Internal server error
+
+    put:
+      summary: Update a Currency by ID
+      operationId: updateCurrency
+      tags:
+        - Currency
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Currency'
+      responses:
+        "200":
+          description: Currency updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Currency'
+        "404":
+          description: Currency not found
+        "500":
+          description: Internal server error
+
+    delete:
+      summary: Delete a Currency by ID
+      operationId: deleteCurrency
+      tags:
+        - Currency
+      responses:
+        "204":
+          description: Currency deleted successfully
+        "404":
+          description: Currency not found
+        "500":
+          description: Internal server error
+  /transactions:
+    get:
+      summary: Get all transactions
+      operationId: getTransactions
+      tags:
+        - Transaction
+      responses:
+        200:
+          description: The list of all transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+        "500":
+          description: Internal server error
+
+    post:
+      summary: Add a Transaction
+      operationId: addTransaction
+      tags:
+        - Transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Transaction'
+      responses:
+        "201":
+          description: Transaction added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        "500":
+          description: Internal server error
+
+  "/transactions/{id}":
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Transaction ID
+
+    get:
+      summary: Get a Transaction by ID
+      operationId: getTransactionById
+      tags:
+        - Transaction
+      responses:
+        "200":
+          description: Transaction found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal server error
+
+    put:
+      summary: Update a Transaction by ID
+      operationId: updateTransaction
+      tags:
+        - Transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Transaction'
+      responses:
+        "200":
+          description: Transaction updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal server error
+
+    delete:
+      summary: Delete a Transaction by ID
+      operationId: deleteTransaction
+      tags:
+        - Transaction
+      responses:
+        "204":
+          description: Transaction deleted successfully
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal server error
+
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type: number
+        pay:
+          type: number
+        account_type:
+          type: string
+        currency_id:
+          type: number
+        create_date:
+          type: string
+          format: date
+      example:
+        id: 1
+        pay: 3000.000
+        account_type: "Savings"
+        currency_id: 3
+        create_date: "2023-01-01"
+    Currency:
+      type: object
+      properties:
+        id:
+          type: number
+        code:
+          type: string
+        name:
+          type: string
+        exchange_rate:
+          type: number
+      example:
+        id: 1
+        code: "USD"
+        name: "US Dollar"
+        exchange_rate: 1
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: number
+        id_account:
+          type: number
+        rising:
+          type: number
+        transaction_type:
+          type: string
+        currency_id:
+          type: number
+        date:
+          type: string
+          format: date
+      example:
+        id: 1
+        id_account: 1
+        rising: 100
+        transaction_type: "dépôt"
+        currency_id: 3
+        date: "2023-01-05"
