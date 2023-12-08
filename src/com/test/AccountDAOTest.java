@@ -2,6 +2,8 @@ package com.test;
 
 import com.main.DAO.AccountDAO;
 import com.main.model.Account;
+import com.main.services.AccountServices;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,4 +74,27 @@ public class AccountDAOTest {
         }
         System.out.println("--");
     }
-}
+
+        public static void main(String[] args) {
+            AccountServices accountServices = new AccountServices();
+
+            Account account = new Account();
+
+            System.out.println("Solde initial : " + account.getPay());
+
+            account = accountServices.effectuerTransaction(account, "Dépôt", 100.0, "Crédit");
+            System.out.println("Solde après dépôt : " + account.getPay());
+
+            account = accountServices.effectuerTransaction(account, "Retrait", 50.0, "Débit");
+            System.out.println("Solde après retrait : " + account.getPay());
+
+            try {
+                account = accountServices.effectuerTransaction(account, "Achat", 60.0, "Débit");
+            } catch (RuntimeException e) {
+                System.out.println("Transaction échouée : " + e.getMessage());
+            }
+
+            System.out.println("Solde final : " + account.getPay());
+        }
+    }
+
