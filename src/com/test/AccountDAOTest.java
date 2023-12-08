@@ -6,7 +6,7 @@ import com.main.model.Account;
 public class AccountDAOTest {
     public static void runAccountDaoTest() {
         // Créez un objet Account pour tester
-        Account accountToSave = new Account(1, "John Doe", 1000.0, 1, "Savings");
+        Account accountToSave = new Account(1, "John Doe", 1000.0, 1, "Banque");
 
         // Créez une instance de la DAO
         AccountDAO accountDao = new AccountDAO();

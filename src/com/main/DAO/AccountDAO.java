@@ -36,7 +36,7 @@ public class AccountDAO implements GenericDAO<Account> {
                 String name = resultSet.getString("name");
                 Double pay = resultSet.getDouble("pay");
                 int idCurrency = resultSet.getInt("idCurrency");
-                LocalDateTime  lastUpdate = resultSet.getTimestamp("last_update_date_time").toLocalDateTime();
+                LocalDateTime lastUpdate = resultSet.getTimestamp("last_update_date_time").toLocalDateTime();
                 String type = resultSet.getString("type");
 
                 Account account = new Account(id, name, pay, lastUpdate, idCurrency, type);
@@ -56,36 +56,28 @@ public class AccountDAO implements GenericDAO<Account> {
     @Override
     public Account save(Account toSave) {
         String sql = "INSERT INTO \"Account\" (id, name, pay, id_currency, type)"
-                + "VALUES (?,?,?,?,?)"
-                + "ON CONFLICT (id)"
-                + "DO UPDATE SET name = ?, pay = ?, id_currency = ?, type = ?"
-                + "RETURNING id";
+                + " VALUES (?,?,?,?,?)"
+                + " ON CONFLICT (id)"
+                + " DO UPDATE SET name = EXCLUDED.name, pay = EXCLUDED.pay, id_currency = EXCLUDED.id_currency, type = EXCLUDED.type"
+                + " RETURNING id";
+
         try (Connection connection = DatabaseConfiguration.CallConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        ) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, toSave.getId());
             preparedStatement.setString(2, toSave.getName());
             preparedStatement.setDouble(3, toSave.getPay());
             preparedStatement.setInt(4, toSave.getIdCurrency());
             preparedStatement.setString(5, toSave.getType());
-            preparedStatement.setString(6, toSave.getName());
-            preparedStatement.setDouble(7, toSave.getPay());
-            preparedStatement.setInt(8, toSave.getIdCurrency());
-            preparedStatement.setString(9, toSave.getType());
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                toSave.setId(resultSet.getInt("id"));
-                return toSave;
-            }
+            return toSave;
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
-
     @Override
     public Account delete(Account toDelete) {
         String sql = "Delete * from Account where id = ?";
