@@ -9,6 +9,7 @@
         private LocalDateTime lastUpdateDateTime;
         private int idCurrency;
         private String type;
+        private Double balance;
 
 
         public Account(int id, String name, Double pay, LocalDateTime lastUpdateDateTime, int idCurrency, String type) {
@@ -26,6 +27,11 @@
             this.pay = pay;
             this.idCurrency = idCurrency;
             this.type = type;
+        }
+
+        public Account(Double pay, LocalDateTime lastUpdateDateTime) {
+            this.pay = pay;
+            this.lastUpdateDateTime = lastUpdateDateTime;
         }
 
         public Account() {
@@ -78,6 +84,16 @@
 
         public void setType(String type) {
             this.type = type;
+        }
+
+
+        // Add getter and setter for the balance field
+        public Double getBalance() {
+            return balance;
+        }
+
+        public void setBalance(Double balance) {
+            this.balance = balance;
         }
 
         @Override
