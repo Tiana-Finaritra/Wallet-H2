@@ -16,14 +16,14 @@ CREATE TABLE IF NOT EXISTS "Account" (
     type VARCHAR(20) CHECK (type IN ('Banque', 'Espèce', 'Mobile Money'))
 );
 
-CREATE TABLE IF NOT EXISTS "Transaction" (
-    id SERIAL PRIMARY KEY,
-    label VARCHAR(200) NOT NULL,
-    amount DOUBLE PRECISION NOT NULL,
-    date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    type VARCHAR(10) CHECK (type IN ('debit', 'credit')),
-    id_account INT REFERENCES "Account"(id)
-);
+    CREATE TABLE IF NOT EXISTS "Transaction" (
+        id SERIAL PRIMARY KEY,
+        label VARCHAR(200) NOT NULL,
+        amount DOUBLE PRECISION NOT NULL,
+        date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        type VARCHAR(10) CHECK (type IN ('debit', 'credit')),
+        id_account INT REFERENCES "Account"(id)
+    );
 
 CREATE TABLE IF NOT EXISTS "Account_transaction"(
     id SERIAL PRIMARY KEY,
