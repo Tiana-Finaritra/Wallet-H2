@@ -1,7 +1,5 @@
 package com.main.model;
 
-import java.util.Objects;
-
 public class Currency {
     private int id;
     private String name;
@@ -11,6 +9,10 @@ public class Currency {
         this.id = id;
         this.name = name;
         this.code = code;
+    }
+
+    public Currency() {
+
     }
 
     public int getId() {
@@ -35,19 +37,6 @@ public class Currency {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Currency currency = (Currency) o;
-        return id == currency.id && Objects.equals(name, currency.name) && Objects.equals(code, currency.code);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, code);
     }
 
     @Override

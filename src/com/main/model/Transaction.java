@@ -1,22 +1,26 @@
 package com.main.model;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Objects;
+import java.time.LocalDateTime;
 
 public class Transaction {
     private int id;
-    private  String label;
-    private BigDecimal amount;
-    private Date date_time;
+    private String label;
+    private Double amount;
+    private LocalDateTime dateTime;
     private String type;
+    private int idAccount;
 
-    public Transaction(int id, String label, BigDecimal amount, Date date_time, String type) {
+    public Transaction(int id, String label, Double amount, LocalDateTime dateTime, String type, int idAccount) {
         this.id = id;
         this.label = label;
         this.amount = amount;
-        this.date_time = date_time;
+        this.dateTime = dateTime;
         this.type = type;
+        this.idAccount = idAccount;
+    }
+
+    public Transaction() {
+
     }
 
     public int getId() {
@@ -35,20 +39,20 @@ public class Transaction {
         this.label = label;
     }
 
-    public BigDecimal getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
-    public Date getDate_time() {
-        return date_time;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setDate_time(Date date_time) {
-        this.date_time = date_time;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public String getType() {
@@ -59,17 +63,12 @@ public class Transaction {
         this.type = type;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Transaction that = (Transaction) o;
-        return id == that.id && Objects.equals(label, that.label) && Objects.equals(amount, that.amount) && Objects.equals(date_time, that.date_time) && Objects.equals(type, that.type);
+    public int getIdAccount() {
+        return idAccount;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, label, amount, date_time, type);
+    public void setIdAccount(int idAccount) {
+        this.idAccount = idAccount;
     }
 
     @Override
@@ -78,8 +77,9 @@ public class Transaction {
                 "id=" + id +
                 ", label='" + label + '\'' +
                 ", amount=" + amount +
-                ", date_time=" + date_time +
+                ", dateTime=" + dateTime +
                 ", type='" + type + '\'' +
+                ", idAccount=" + idAccount +
                 '}';
     }
 }
