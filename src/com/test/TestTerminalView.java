@@ -26,4 +26,13 @@ public class TestTerminalView {
         TransactionDAOTest.runTransactionFindAllTest();
         TransactionDAOTest.runTransactionDeleteTest();
     }
+    public static void AllDAOTestAccountTransaction() {
+        System.out.println("\n++++++++ACCOUNT_TRANSACTION:");
+        DbConnectionTest.connectionDBTest();
+        AccountTransactionDAOTest.runAccountTransactionSaveTest();
+        AccountTransactionDAOTest.runAccountTransactionSaveAllTest();
+        AccountTransactionDAOTest.runAccountTransactionFindAllTest();
+        AccountTransactionDAOTest.runAccountTransactionDeleteTest();
+    }
+
 }

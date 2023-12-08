@@ -7,5 +7,6 @@ public class Main {
         TestTerminalView.AllDAOTestAccount();
         TestTerminalView.AllDAOTestCurrency();
         TestTerminalView.AllDAOTestTransaction();
+        TestTerminalView.AllDAOTestAccountTransaction();
     }
 }
