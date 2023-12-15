@@ -3,6 +3,7 @@ package com.main.DAO;
 import com.main.configurations.DatabaseConfiguration;
 import com.main.generic.GenericDAO;
 import com.main.model.Transaction;
+import java.sql.Types;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -68,9 +69,18 @@ public class TransactionDAO implements GenericDAO<Transaction> {
             for (Transaction transaction : toSave) {
                 preparedStatement.setInt(1, transaction.getId());
                 preparedStatement.setString(2, transaction.getLabel());
-                preparedStatement.setDouble(3, transaction.getAmount());
-                preparedStatement.setTimestamp(4, java.sql.Timestamp.valueOf(transaction.getDateTime()));
-                preparedStatement.setString(5, transaction.getType());
+                Double amount = transaction.getAmount();
+                if (amount != null) {
+                    preparedStatement.setDouble(3, amount.doubleValue());
+                } else {
+                    preparedStatement.setNull(3, Types.DOUBLE);
+                }
+                LocalDateTime dateTime = transaction.getDateTime();
+                if (dateTime != null) {
+                    preparedStatement.setTimestamp(4, java.sql.Timestamp.valueOf(dateTime));
+                } else {
+                    preparedStatement.setNull(4, Types.TIMESTAMP);
+                }                preparedStatement.setString(5, transaction.getType());
                 preparedStatement.setInt(6, transaction.getIdAccount());
 
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -98,8 +108,19 @@ public class TransactionDAO implements GenericDAO<Transaction> {
 
             preparedStatement.setInt(1, toSave.getId());
             preparedStatement.setString(2, toSave.getLabel());
-            preparedStatement.setDouble(3, toSave.getAmount());
-            preparedStatement.setTimestamp(4, java.sql.Timestamp.valueOf(toSave.getDateTime()));
+            Double amount = toSave.getAmount();
+            if (amount != null) {
+                preparedStatement.setDouble(3, amount.doubleValue());
+            } else {
+                // Handle the case where amount is null (set a default value, log a message, etc.)
+                preparedStatement.setNull(3, Types.DOUBLE);
+            }
+            LocalDateTime dateTime = toSave.getDateTime();
+            if (dateTime != null) {
+                preparedStatement.setTimestamp(4, java.sql.Timestamp.valueOf(dateTime));
+            } else {
+                preparedStatement.setNull(4, Types.TIMESTAMP);
+            }
             preparedStatement.setString(5, toSave.getType());
             preparedStatement.setInt(6, toSave.getIdAccount());
 
