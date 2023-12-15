@@ -14,12 +14,20 @@ INSERT INTO "Account" (name, pay, id_currency, type) VALUES
 ('Emergency Fund', 3000.00, 2, 'Banque');
 
 
-INSERT INTO "Transaction" (label, amount, type, id_account) VALUES
-('Grocery Shopping', 50.00, 'debit', 1),
-('Salary Deposit', 3000.00, 'credit', 4),
-('Dinner with Friends', 30.00, 'debit', 2),
-('Electricity Bill', 80.00, 'debit', 5),
-('Bonus Received', 1000.00, 'credit', 1);
+INSERT INTO "Transaction_category" (name, items_list) VALUES
+('Nourriture et Boissons', 'Alimentation, Household, Bar, café, Restaurant, fast-food'),
+('Achats et boutiques en ligne', 'Animaux de compagnie, Bijoux, accessoires, Cadeaux, Electronique, accessoires, '),
+('Dining', 'Food, Entertainment'),
+('Utilities', 'Bills'),
+('Bonus', 'Income');
+
+
+INSERT INTO "Transaction" (label, amount, type, id_account, id_category) VALUES
+('Grocery Shopping', 50.00, 'debit', 1, 1),
+('Salary Deposit', 3000.00, 'credit', 4, 2),
+('Dinner with Friends', 30.00, 'debit', 2, 3),
+('Electricity Bill', 80.00, 'debit', 5, 4),
+('Bonus Received', 1000.00, 'credit', 1, 5);
 
 
 INSERT INTO "Account_transaction" (id_transaction, id_account) VALUES

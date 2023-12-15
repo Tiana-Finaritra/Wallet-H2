@@ -1,4 +1,9 @@
+\c postgres
+
+DROP database if exists wallet2;
+
 create database wallet2;
+
 \c wallet2;
 
 CREATE TABLE IF NOT EXISTS "Currency" (
@@ -16,14 +21,27 @@ CREATE TABLE IF NOT EXISTS "Account" (
     type VARCHAR(20) CHECK (type IN ('Banque', 'Espèce', 'Mobile Money'))
 );
 
-    CREATE TABLE IF NOT EXISTS "Transaction" (
-        id SERIAL PRIMARY KEY,
-        label VARCHAR(200) NOT NULL,
-        amount DOUBLE PRECISION NOT NULL,
-        date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        type VARCHAR(10) CHECK (type IN ('debit', 'credit')),
-        id_account INT REFERENCES "Account"(id)
-    );
+
+CREATE TABLE IF NOT EXISTS "Transaction_category" (
+    id  SERIAL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    items_list VARCHAR(400)
+);
+
+CREATE TABLE IF NOT EXISTS "Transaction" (
+    id SERIAL PRIMARY KEY,
+    label VARCHAR(200) NOT NULL,
+    amount DOUBLE PRECISION NOT NULL,
+    date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    type VARCHAR(10) CHECK (type IN ('debit', 'credit')),
+    id_account INT REFERENCES "Account"(id),
+    id_category INT REFERENCES "Transaction_category"(id)
+);
+
+
+
+
+    ALTER TABLE "Transaction" ADD COLUMN category VARCHAR(150) UNIQUE;
 
 CREATE TABLE IF NOT EXISTS "Account_transaction"(
     id SERIAL PRIMARY KEY,
