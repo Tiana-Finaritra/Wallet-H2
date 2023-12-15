@@ -1,14 +1,15 @@
 package com.main.model;
+
 import lombok.*;
 
-@Getter
 @AllArgsConstructor
 @Setter
+@Getter
 @ToString
 @NoArgsConstructor
 
-public class Currency {
+public class TransactionCategory {
     private int id;
     private String name;
-    private String code;
+    private String itemsList;
 }

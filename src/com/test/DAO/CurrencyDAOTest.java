@@ -1,4 +1,4 @@
-package com.test;
+package com.test.DAO;
 
 import com.main.DAO.CurrencyDAO;
 import com.main.model.Currency;

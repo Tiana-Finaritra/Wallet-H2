@@ -1,4 +1,6 @@
-package com.test;
+package com.test.DAO;
+
+import com.test.Configurations.DbConnectionTest;
 
 public class TestTerminalView {
     public static void AllDAOTestAccount() {
@@ -33,6 +35,15 @@ public class TestTerminalView {
         AccountTransactionDAOTest.runAccountTransactionSaveAllTest();
         AccountTransactionDAOTest.runAccountTransactionFindAllTest();
         AccountTransactionDAOTest.runAccountTransactionDeleteTest();
+    }
+
+    public static void AllDAOTestTransactionCategory() {
+        System.out.println("\n++++++++TRANSACTION_CATEGORY:");
+        DbConnectionTest.connectionDBTest();
+        TransactionCategoryDAOTest.runTransactionCategorySaveTest();
+        TransactionCategoryDAOTest.runTransactionCategorySaveAllTest();
+        TransactionCategoryDAOTest.runTransactionCategoryFindAllTest();
+        TransactionCategoryDAOTest.runTransactionCategoryDeleteTest();
     }
 
 }

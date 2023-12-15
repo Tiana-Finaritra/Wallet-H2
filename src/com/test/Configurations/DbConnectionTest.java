@@ -1,4 +1,4 @@
-package com.test;
+package com.test.Configurations;
 
 import com.main.configurations.DatabaseConfiguration;
 

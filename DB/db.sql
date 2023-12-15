@@ -38,11 +38,6 @@ CREATE TABLE IF NOT EXISTS "Transaction" (
     id_category INT REFERENCES "Transaction_category"(id)
 );
 
-
-
-
-    ALTER TABLE "Transaction" ADD COLUMN category VARCHAR(150) UNIQUE;
-
 CREATE TABLE IF NOT EXISTS "Account_transaction"(
     id SERIAL PRIMARY KEY,
     id_transaction INT REFERENCES "Transaction"(id),

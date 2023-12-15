@@ -1,4 +1,4 @@
-package com.test;
+package com.test.DAO;
 
 import com.main.DAO.AccountTransactionDAO;
 import com.main.model.AccountTransaction;

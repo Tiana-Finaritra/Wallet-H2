@@ -39,7 +39,7 @@ public class AccountDAO implements GenericDAO<Account> {
                 account.setPay(resultSet.getDouble("pay"));
                 account.setIdCurrency(resultSet.getInt("id_currency"));
                 account.setType(resultSet.getString("type"));
-
+                account.setBalance(resultSet.getDouble("balance"));
                 accounts.add(account);
             }
 

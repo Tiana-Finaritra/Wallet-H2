@@ -1,7 +1,5 @@
-import com.test.AccountDAOTest;
-import com.test.DbConnectionTest;
 import com.test.Services.TestTransactionServices;
-import com.test.TestTerminalView;
+import com.test.DAO.TestTerminalView;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,6 +7,7 @@ public class Main {
         TestTerminalView.AllDAOTestCurrency();
         TestTerminalView.AllDAOTestTransaction();
         TestTerminalView.AllDAOTestAccountTransaction();
+        TestTerminalView.AllDAOTestTransactionCategory();
         TestTransactionServices.testGetBalanceAtDateTime();
     }
 }
