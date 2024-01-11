@@ -3,6 +3,7 @@ package com.main.DAO;
 import com.main.configurations.DatabaseConfiguration;
 import com.main.generic.GenericDAO;
 import com.main.model.Account;
+import java.sql.Types;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -67,8 +68,12 @@ public class AccountDAO implements GenericDAO<Account> {
             for (Account account : toSave) {
                 preparedStatement.setInt(1, account.getId());
                 preparedStatement.setString(2, account.getName());
-                preparedStatement.setDouble(3, account.getPay());
-                preparedStatement.setInt(4, account.getIdCurrency());
+                Double pay = account.getPay();
+                if (pay != null) {
+                    preparedStatement.setDouble(3, pay.doubleValue());
+                } else {
+                    preparedStatement.setNull(3, Types.DOUBLE);
+                }                preparedStatement.setInt(4, account.getIdCurrency());
                 preparedStatement.setString(5, account.getType());
 
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -96,7 +101,13 @@ public class AccountDAO implements GenericDAO<Account> {
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, toSave.getId());
             preparedStatement.setString(2, toSave.getName());
-            preparedStatement.setDouble(3, toSave.getPay());
+            Double pay = toSave.getPay();
+            if (pay != null) {
+                preparedStatement.setDouble(3, pay.doubleValue());
+            } else {
+                // Handle the case where pay is null (set a default value, log a message, etc.)
+                preparedStatement.setNull(3, Types.DOUBLE);
+            }
             preparedStatement.setInt(4, toSave.getIdCurrency());
             preparedStatement.setString(5, toSave.getType());
 
